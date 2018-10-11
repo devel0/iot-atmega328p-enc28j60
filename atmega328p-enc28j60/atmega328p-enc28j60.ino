@@ -23,7 +23,10 @@ void setup()
   uint8_t myDNS[4] = {MYDNS};
   uint8_t myGW[4] = {MYGW};
 
-  //  Ethernet.begin(mac,myIP);
+  // dhcp
+  //Ethernet.begin(mac);
+
+  // static
   Ethernet.begin(mac, myIP, myDNS, myGW, myMASK);
 
   server.begin();
