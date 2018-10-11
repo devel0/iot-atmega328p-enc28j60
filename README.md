@@ -19,8 +19,8 @@ minimal setup to debug atmega328p with enc28j60
 
 - arduino nano (optional) to debug serial output from atmega328p wiring RXD serial of nano to atmega328p TXD (pin 3)
 - power atmega328p with 3.3v using external power supply ( I used MB102 Breadboard Power Supply Module ams1117 based )
-- connect programmer USBASP V2.0 ( jumper to 3.3v ) to atmega ( VCC,GND,RST,MISO,MOSI,SCK )
-- connect Enc28j60 to atmega ( VCC,GND,CS->SS,SI->MOSI,SCK,SO->MISO ) ; note that programmer not influenced by presence of enc28j60 during programming but required breadboard to be 3.3v powered
+- connect programmer USBASP V2.0 ( jumper to 3.3v ) to atmega ( `VCC GND RST MISO MOSI SCK` )
+- connect Enc28j60 to atmega ( `VCC GND CS->SS SI->MOSI SCK SO->MISO` ) ; note that programmer not influenced by presence of enc28j60 during programming but required breadboard to be 3.3v powered
 
 ## usage
 
