@@ -1,0 +1,6 @@
+{
+    "board": "atmega:avr:atmega328",
+    "configuration": "clock=internal8,cpu=atmega328p",
+    "port": "/dev/ttyUSB0",
+    "sketch": "atmega328p-enc28j60.ino"
+}
