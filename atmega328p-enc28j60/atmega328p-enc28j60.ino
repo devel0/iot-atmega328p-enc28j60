@@ -1,5 +1,7 @@
+//#define ARDUINO 18070
+
 #define SERIAL_DEBUG
-#define MACADDRESS 0x00, 0x01, 0x02, 0x03, 0x04, 0x05
+#define MACADDRESS 0x30, 0xcf, 0x8d, 0x9f, 0x5b, 0x89
 #define MYIPADDR 10, 10, 2, 5
 #define MYIPMASK 255, 255, 255, 0
 #define MYDNS 10, 10, 0, 6
@@ -8,8 +10,12 @@
 
 #include <UIPEthernet.h>
 #include <arduino-utils.h>
+#include <Printable.h>
 
 EthernetServer server = EthernetServer(LISTENPORT);
+
+#include <Arduino.h>
+#include <arduino-utils.h>
 
 void setup()
 {
@@ -24,16 +30,22 @@ void setup()
   uint8_t myGW[4] = {MYGW};
 
   // dhcp
-  //Ethernet.begin(mac);
+  Ethernet.begin(mac);
 
   // static
-  Ethernet.begin(mac, myIP, myDNS, myGW, myMASK);
+  //Ethernet.begin(mac, myIP, myDNS, myGW, myMASK);
+
+#ifdef SERIAL_DEBUG
+  DEBUG_PRINT("my ip : ");
+  Ethernet.localIP().printTo(Serial);
+  DEBUG_PRINTLN();
+#endif
 
   server.begin();
 }
 
 void loop()
-{
+{    
   size_t size;
 
   if (EthernetClient client = server.available())
