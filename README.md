@@ -21,9 +21,15 @@ minimal setup to debug atmega328p with enc28j60
 
 - **GND** common to 3V3, 5V breadboard rails + atmega328p + usbasp + enc28j60 + arduino nano
 - **atmega328p** ( VCC from 5V rail )
-- **arduino nano** ( do not connect VCC ) : RXD to atmega TXD
-- **usbasp** ( do not connect VCC ) : `RST MISO MOSI SCK` to corresponding atmega
+- **arduino nano** ( VCC conn not required ) : RXD to atmega TXD
+- **usbasp** : `RST MISO MOSI SCK` to corresponding atmega
 - **enc28j60** ( VCC from 3V3 rail ) `CS SI SCK SO` to atmega `SS MOSI SCK MISO`
+
+### troubleshoot
+
+If experiencing signal lost after some period major causes are:
+- out of memory ( check free memory using [FREERAM_PRINT](https://github.com/Locoduino/MemoryUsage) )
+- bad cable connections ( this happens to me frequently using breadboard due to instable not tight pin connection ), to solve proceed to solder on an experimental board )
 
 ## usage
 
