@@ -20,7 +20,7 @@ minimal setup to debug atmega328p with enc28j60
 ### wirings
 
 - **GND** common to 3V3, 5V breadboard rails + atmega328p + usbasp + enc28j60 + arduino nano
-- **atmega328p** ( VCC from 5V rail )
+- **atmega328p** ( VCC from 5V rail but can work at 3V3 )
 - **arduino nano** ( VCC conn not required ) : RXD to atmega TXD
 - **usbasp** : `RST MISO MOSI SCK` to corresponding atmega
 - **enc28j60** ( VCC from 3V3 rail ) `CS SI SCK SO` to atmega `SS MOSI SCK MISO`
