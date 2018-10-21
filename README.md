@@ -5,7 +5,7 @@ minimal setup to debug atmega328p with enc28j60
 ## prerequisites
 
 - software
-  - install [vscode arduino](https://github.com/devel0/knowledge/blob/master/arduino/vscode-arduino.md)
+  - install [vscode arduino](https://github.com/devel0/knowledge/blob/master/electronics/vscode-arduino.md)
   - install [UIPEthernet](https://github.com/UIPEthernet/UIPEthernet)
 - hardware
   - arduino nano ( for serial debugging through [as serial reader](https://github.com/devel0/iot-arduino-nano-as-serial-reader) )
