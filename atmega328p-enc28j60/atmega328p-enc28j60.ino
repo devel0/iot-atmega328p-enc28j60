@@ -1,28 +1,32 @@
-//#define ARDUINO 18070
-
 #define SERIAL_DEBUG
-#define MACADDRESS 0x30, 0xcf, 0x8d, 0x9f, 0x5b, 0x89
-#define MYIPADDR 10, 10, 2, 5
+#define MACADDRESS 0x30, 0xca, 0x8d, 0x9f, 0x5b, 0x89
+#define MYIPADDR 10, 10, 4, 110
 #define MYIPMASK 255, 255, 255, 0
 #define MYDNS 10, 10, 0, 6
 #define MYGW 10, 10, 0, 1
 #define LISTENPORT 1000
 
 #include <UIPEthernet.h>
-#include <arduino-utils.h>
-#include <Printable.h>
+#include <Util.h>
+using namespace SearchAThing::Arduino;
 
 EthernetServer server = EthernetServer(LISTENPORT);
 
-#include <Arduino.h>
-#include <arduino-utils.h>
+#include <mbed/Print.h>
+
+class DPrint_ : public Print
+{
+public:
+  virtual size_t write(uint8_t c)
+  {
+    DPrint((char)c);
+
+    return 1;
+  }
+};
 
 void setup()
 {
-#ifdef SERIAL_DEBUG
-  Serial.begin(115200);
-#endif
-
   uint8_t mac[6] = {MACADDRESS};
   uint8_t myIP[4] = {MYIPADDR};
   uint8_t myMASK[4] = {MYIPMASK};
@@ -33,24 +37,25 @@ void setup()
   Ethernet.begin(mac);
 
   // static
-  //Ethernet.begin(mac, myIP, myDNS, myGW, myMASK);
+  //  Ethernet.begin(mac, myIP, myDNS, myGW, myMASK);
 
 #ifdef SERIAL_DEBUG
-  DEBUG_PRINT("my ip : ");
-  Ethernet.localIP().printTo(Serial);
-  DEBUG_PRINTLN();
+  DPrint(F("my ip : "));
+  DPrint_ pr;
+  Ethernet.localIP().printTo(pr);
+  DPrintln();
 #endif
 
   server.begin();
 }
 
 void loop()
-{    
+{
   size_t size;
 
   if (EthernetClient client = server.available())
   {
-    DEBUG_PRINT("received message : ");
+    DPrint("received message : ");
 
     while ((size = client.available()) > 0)
     {
@@ -58,7 +63,7 @@ void loop()
       memset(msg, 0, size + 1);
       size = client.read(msg, size);
 
-      DEBUG_PRINTBUF(msg, size);
+      DPrintln((char *)msg);
 
       free(msg);
     }

@@ -7,6 +7,11 @@
                 "${workspaceFolder}/**",
                 "/home/devel0/Arduino/libraries/**"
             ],
+            "browse": {
+                "path": [
+                    "/home/devel0/Arduino/libraries"
+                ]
+            },
             "defines": [],
             "compilerPath": "/usr/bin/gcc",
             "cStandard": "c11",
