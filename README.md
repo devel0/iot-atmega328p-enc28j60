@@ -8,22 +8,25 @@ minimal setup to debug atmega328p with enc28j60
   - install [vscode arduino](https://github.com/devel0/knowledge/blob/master/electronics/vscode-arduino.md)
   - install [UIPEthernet](https://github.com/UIPEthernet/UIPEthernet)
 - hardware
-  - arduino nano ( for serial debugging through [as serial reader](https://github.com/devel0/iot-arduino-nano-as-serial-reader) )
-  - USBASP 2.0 ( as programmer )
-  - atmega328p with 3.3V/5V powered breadboard ( I used MB102 Breadboard Power Supply Module ams1117 based )
-  - enc28j60
+  - [atmega bare](https://github.com/devel0/iot-atmega-bare)
+  - [enc28j60](https://www.microchip.com/wwwproducts/en/en022889) module
 
 ## setup
 
-![img](doc/setup.jpg)
+<img src="doc/setup.jpg" width=640/>
+
+```
+Sketch uses 19990 bytes (61%) of program storage space. Maximum is 32768 bytes.
+Global variables use 1102 bytes (53%) of dynamic memory, leaving 946 bytes for local variables. Maximum is 2048 bytes.
+```
 
 ### wirings
 
-- **GND** `GND` common to 3V3/5V breadboard rails + atmega328p + usbasp + enc28j60 + arduino nano
-- **atmega328p** ( `VCC` from 5V rail but can work at 3V3 )
-- **enc28j60** ( `VCC` from 3V3 rail ) `CS SI SCK SO` to atmega `SS MOSI SCK MISO`
-- **arduino nano** `GND`; `RXD` to atmega `TXD`
-- **usbasp** : `GND RST MISO MOSI SCK` to corresponding atmega
+- **GND** `GND` common to atmega328p + usbasp + enc28j60 + usb ttl serial
+- **enc28j60** `VCC` from atmega bare **3.3V** `CS SI SCK SO` to atmega `SS MOSI SCK MISO`
+- **atmega328p** `VCC` from atmega bare 3.3V but can work 5V cause enc28j660 digital pin are 5V tolerant
+- **usb ttl serial** `RXD` to atmega `TXD`
+- **usbasp** : `GND RST MISO MOSI SCK` to corresponding atmega ( use ICSP bare connector )
 
 ### troubleshoot
 
@@ -45,7 +48,3 @@ hi
 ```
 received message : hi
 ```
-
-## references
-
-- [pins and summary datasheet](http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-42735-8-bit-AVR-Microcontroller-ATmega328-328P_Summary.pdf)
