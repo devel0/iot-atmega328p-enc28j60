@@ -1,4 +1,3 @@
-#define SERIAL_DEBUG
 #define MACADDRESS 0x30, 0xca, 0x8d, 0x9f, 0x5b, 0x89
 #define MYIPADDR 10, 10, 4, 110
 #define MYIPMASK 255, 255, 255, 0
@@ -7,23 +6,14 @@
 #define LISTENPORT 1000
 
 #include <UIPEthernet.h>
+// edit UIPEthernet/utility/uipethernet-conf.h to customize
+// - define UIP_CONF_UDP=0 to reduce flash size
+
+#include <DPrint.h>
 #include <Util.h>
 using namespace SearchAThing::Arduino;
 
 EthernetServer server = EthernetServer(LISTENPORT);
-
-#include <mbed/Print.h>
-
-class DPrint_ : public Print
-{
-public:
-  virtual size_t write(uint8_t c)
-  {
-    DPrint((char)c);
-
-    return 1;
-  }
-};
 
 void setup()
 {
@@ -34,10 +24,12 @@ void setup()
   uint8_t myGW[4] = {MYGW};
 
   // dhcp
-  Ethernet.begin(mac);
+  //Ethernet.begin(mac);
 
   // static
-  //  Ethernet.begin(mac, myIP, myDNS, myGW, myMASK);
+  Ethernet.begin(mac, myIP, myDNS, myGW, myMASK);
+
+  DPrintCls pr;
 
 #ifdef SERIAL_DEBUG
   DPrint(F("my ip : "));

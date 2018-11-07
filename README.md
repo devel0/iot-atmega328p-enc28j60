@@ -2,6 +2,8 @@
 
 minimal setup to debug atmega328p with enc28j60
 
+<img src="doc/setup.jpg" width=640/>
+
 ## prerequisites
 
 - software
@@ -11,34 +13,26 @@ minimal setup to debug atmega328p with enc28j60
   - [atmega bare](https://github.com/devel0/iot-atmega-bare)
   - [enc28j60](https://www.microchip.com/wwwproducts/en/en022889) module
 
-## setup
+## config
 
-<img src="doc/setup.jpg" width=640/>
+- tune your network config MACADDRESS and MYIPADDR, MYIPMASK, MYDNS, MYGW if want static initialization
+- set UIP_CONF_UDP=0 in UIPEthernet/utility/uipethernet-conf.h library to save up to 5k flash
+
+## sketch size
+
+- serial debug included
+- static ip
 
 ```
-Sketch uses 19990 bytes (61%) of program storage space. Maximum is 32768 bytes.
-Global variables use 1102 bytes (53%) of dynamic memory, leaving 946 bytes for local variables. Maximum is 2048 bytes.
+Sketch uses 17346 bytes (52%) of program storage space. Maximum is 32768 bytes.
+Global variables use 1100 bytes (53%) of dynamic memory, leaving 948 bytes for local variables. Maximum is 2048 bytes.
 ```
 
 ### wirings
 
 schematics [here](https://easyeda.com/editor#id=|7506cd41b26244d4b4f3a225eba49999) just skip sd card and power enc28j60 from 3v3 setting JP2 to link VCC-3V3
 
-- **GND** `GND` common to atmega328p + usbasp + enc28j60 + usb ttl serial
-- **enc28j60** `VCC` from atmega bare **3.3V** `CS SI SCK SO` to atmega `SS MOSI SCK MISO`
-- **atmega328p** `VCC` from atmega bare 3.3V but can work 5V cause enc28j660 digital pin are 5V tolerant
-- **usb ttl serial** `RXD` to atmega `TXD`
-- **usbasp** : `GND RST MISO MOSI SCK` to corresponding atmega ( use ICSP bare connector )
-
-### troubleshoot
-
-If experiencing signal lost after some period major causes are:
-- out of memory ( check free memory using [FREERAM_PRINT](https://github.com/Locoduino/MemoryUsage) )
-- bad cable connections ( this happens to me frequently using breadboard due to instable not tight pin connection ), to solve proceed to solder on an experimental board )
-
 ## usage
-
-- tune your network config MACADDRESS and MYIPADDR, MYIPMASK, MYDNS, MYGW if want static initialization
 
 ```
 telnet 10.10.2.5 1000
