@@ -22,6 +22,8 @@ Global variables use 1102 bytes (53%) of dynamic memory, leaving 946 bytes for l
 
 ### wirings
 
+schematics [here](https://easyeda.com/editor#id=|7506cd41b26244d4b4f3a225eba49999) just skip sd card and power enc28j60 from 3v3 setting JP2 to link VCC-3V3
+
 - **GND** `GND` common to atmega328p + usbasp + enc28j60 + usb ttl serial
 - **enc28j60** `VCC` from atmega bare **3.3V** `CS SI SCK SO` to atmega `SS MOSI SCK MISO`
 - **atmega328p** `VCC` from atmega bare 3.3V but can work 5V cause enc28j660 digital pin are 5V tolerant
