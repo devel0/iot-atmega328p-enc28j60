@@ -4,6 +4,13 @@ minimal setup to debug atmega328p with enc28j60
 
 <img src="doc/setup.jpg" width=640/>
 
+- [prerequisites](#prerequisites)
+- [config](#config)
+- [wirings](#wirings)
+- [sketch size](#sketch-size)
+- [usage](#usage)
+- [security considerations](#security-considerations)
+
 ## prerequisites
 
 - software
@@ -44,3 +51,9 @@ hi
 ```
 received message : hi
 ```
+
+## security considerations
+
+- atmega web server with **NOT** crypted https: thing can faced to internet through a [nginx proxy](https://github.com/devel0/docker-nginx) with a valid certificate encryption
+- if write ( acting or activators ) present in a internet face must present an api token ( and https of course )
+- in LAN a paranoid setting suggest you have a router with firewall that allow access to the thing only to authorized frontends
