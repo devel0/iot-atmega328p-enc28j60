@@ -4,6 +4,13 @@ minimal setup to debug atmega328p with enc28j60
 
 <img src="doc/setup.jpg" width=640/>
 
+- [prerequisites](#prerequisites)
+- [config](#config)
+- [wirings](#wirings)
+- [sketch size](#sketch-size)
+- [usage](#usage)
+- [security considerations](#security-considerations)
+
 ## prerequisites
 
 - software
@@ -16,7 +23,11 @@ minimal setup to debug atmega328p with enc28j60
 ## config
 
 - tune your network config MACADDRESS and MYIPADDR, MYIPMASK, MYDNS, MYGW if want static initialization
-- set UIP_CONF_UDP=0 in UIPEthernet/utility/uipethernet-conf.h library to save up to 5k flash
+- set `UIP_CONF_UDP=0` in `~/Arduino/libraries/UIPEthernet/utility/uipethernet-conf.h` library to save up to 5k flash
+
+## wirings
+
+schematics [here](https://easyeda.com/editor#id=|7506cd41b26244d4b4f3a225eba49999) just skip sd card and power enc28j60 from 3v3 setting JP2 to link VCC-3V3
 
 ## sketch size
 
@@ -27,10 +38,6 @@ minimal setup to debug atmega328p with enc28j60
 Sketch uses 17346 bytes (52%) of program storage space. Maximum is 32768 bytes.
 Global variables use 1100 bytes (53%) of dynamic memory, leaving 948 bytes for local variables. Maximum is 2048 bytes.
 ```
-
-### wirings
-
-schematics [here](https://easyeda.com/editor#id=|7506cd41b26244d4b4f3a225eba49999) just skip sd card and power enc28j60 from 3v3 setting JP2 to link VCC-3V3
 
 ## usage
 
@@ -44,3 +51,9 @@ hi
 ```
 received message : hi
 ```
+
+## security considerations
+
+- atmega web server with **NOT** crypted https: thing can faced to internet through a [nginx proxy](https://github.com/devel0/docker-nginx) with a valid certificate encryption
+- if write ( acting or activators ) present in a internet face must present an api token ( and https of course )
+- in LAN a paranoid setting suggest you have a router with firewall that allow access to the thing only to authorized frontends
