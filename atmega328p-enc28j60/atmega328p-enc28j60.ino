@@ -1,3 +1,12 @@
+//==============================================================================
+//
+//-------------------- PLEASE REVIEW FOLLOW VARIABLES ------------------
+//
+
+// choose one of follow two interface
+//#define USE_ENC28J60
+#define USE_W5500
+
 #define MACADDRESS 0x30, 0xca, 0x8d, 0x9f, 0x5b, 0x89
 #define MYIPADDR 10, 10, 4, 110
 #define MYIPMASK 255, 255, 255, 0
@@ -5,9 +14,20 @@
 #define MYGW 10, 10, 0, 1
 #define LISTENPORT 1000
 
+// EDIT DebugMacros to set SERIAL_SPEED and enable/disable DPRINT_SERIAL
+
+//
+//==============================================================================
+
+#ifdef USE_ENC28J60
 #include <UIPEthernet.h>
 // edit UIPEthernet/utility/uipethernet-conf.h to customize
 // - define UIP_CONF_UDP=0 to reduce flash size
+#endif
+
+#ifdef USE_W5500
+#include <Ethernet.h>
+#endif
 
 #include <DPrint.h>
 #include <Util.h>
@@ -31,12 +51,9 @@ void setup()
 
   DPrintCls pr;
 
-#ifdef SERIAL_DEBUG
-  DPrint(F("my ip : "));
-  DPrint_ pr;
+  DPrint(F("my ip : "));  
   Ethernet.localIP().printTo(pr);
   DPrintln();
-#endif
 
   server.begin();
 }
@@ -47,7 +64,7 @@ void loop()
 
   if (EthernetClient client = server.available())
   {
-    DPrint("received message : ");
+    DPrint(F("received message : "));
 
     while ((size = client.available()) > 0)
     {
