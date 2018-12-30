@@ -14,7 +14,7 @@ minimal setup to debug atmega328p with enc28j60/w5500
 ## prerequisites
 
 - software
-  - install [vscode arduino](https://github.com/devel0/knowledge/blob/master/electronics/vscode-arduino.md)
+  - install [vscode arduino](https://github.com/devel0/knowledge/blob/master/doc/vscode-arduino.md)
   - install [UIPEthernet](https://github.com/UIPEthernet/UIPEthernet)
 - hardware
   - [atmega bare](https://github.com/devel0/iot-atmega-bare)
